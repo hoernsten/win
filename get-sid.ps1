@@ -1,44 +1,27 @@
-Param(
+$domain = "example.com"
+$object = $args[0]
 
-  [string]$User,
-  [string]$SID
-)
-
-if ($User) {
-
-    try {
-
-        $objUser = New-Object System.Security.Principal.NTAccount("example.com", "$User")
-        $traSID = $objUser.Translate([System.Security.Principal.SecurityIdentifier])
-    }
-
-    catch [System.Management.Automation.MethodException] {
-
-        Write-Host -ForegroundColor Red "ERROR: Invalid User ID"; Exit
-    }
-
-    Write-Host "User:" $User
-    Write-Host "SID:" $traSID `n
-}
-
-if ($SID) {
-
-    try {
-
-        $objSID = New-Object System.Security.Principal.SecurityIdentifier("$SID")
-        $traUser = $objSID.Translate( [System.Security.Principal.NTAccount])
-    }
-
-    catch [System.Management.Automation.MethodException] {
+try {
     
-        Write-Host -ForegroundColor Red "ERROR: Invalid SID"; Exit
+    if ($object -match 'S\-.*') {
+        
+        $sid = New-Object System.Security.Principal.SecurityIdentifier("$object")
+        $user = $sid.Translate([System.Security.Principal.NTAccount])
     }
 
-    Write-Host "User:" $traUser
-    Write-Host "SID:" $SID `n
+    else {
+
+        $user = New-Object System.Security.Principal.NTAccount("$domain", "$object")
+        $sid = $user.Translate([System.Security.Principal.SecurityIdentifier])
+    }
 }
 
-if (!$User -and !$SID) {
+catch [System.Management.Automation.MethodException] {
 
-    Write-Host "Usage:" `n ".\script -User nobody" `n ".\script -SID S-1-0-0"
+    Write-Host -ForegroundColor Red "Error: $($object) not found in $($domain)"
+    Exit
 }
+
+Write-Host `n"User:" $user
+Write-Host "SID:" $sid
+Write-Host "Domain:" $domain`n

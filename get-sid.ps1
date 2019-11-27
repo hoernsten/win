@@ -14,14 +14,13 @@ try {
         $user = New-Object System.Security.Principal.NTAccount("$domain", "$object")
         $sid = $user.Translate([System.Security.Principal.SecurityIdentifier])
     }
+	
+	Write-Host `n"User:" $user
+	Write-Host "SID:" $sid
+	Write-Host "Domain:" $domain`n
 }
 
 catch [System.Management.Automation.MethodException] {
 
-    Write-Host -ForegroundColor Red "Error: $($object) not found in $($domain)"
-    Exit
+    Write-Host -ForegroundColor Red "Error: $($object) not found"
 }
-
-Write-Host `n"User:" $user
-Write-Host "SID:" $sid
-Write-Host "Domain:" $domain`n

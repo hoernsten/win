@@ -46,12 +46,12 @@ else {
     # Switch playback device
     try {
 
-        Set-AudioDevice -ID $((Get-AudioDevice -List | Where-Object {$_.Name -eq "Högtalare (Razer Kraken TE - Game)"}).ID) 1> $null
+        Set-AudioDevice -ID $((Get-AudioDevice -List | Where-Object {$_.Name -eq "Headphones (Razer Kraken TE - Game)"}).ID) 1> $null
     }
 
     catch [System.ArgumentException] {
 
-        Write-Host "Error: No playback device named 'Högtalare (Razer Kraken TE - Game)' found" -ForegroundColor Red
+        Write-Host "Error: No playback device named 'Headphones (Razer Kraken TE - Game)' found" -ForegroundColor Red
         Write-Host "Press Enter to quit... " -NoNewline; Read-Host
         Exit
     }
@@ -85,12 +85,12 @@ else {
     # Switch back to previous playback device
     try {
 
-        Set-AudioDevice -ID $((Get-AudioDevice -List | Where-Object {$_.Name -eq "Högtalare (THX Spatial - Synapse)"}).ID) 1> $null
+        Set-AudioDevice -ID $((Get-AudioDevice -List | Where-Object {$_.Name -eq "Headphones (THX Spatial - Synapse)"}).ID) 1> $null
     }
 
     catch [System.ArgumentException] {
 
-        Write-Host "Error: No playback device named 'Högtalare (THX Spatial - Synapse)' found" -ForegroundColor Red
+        Write-Host "Error: No playback device named 'Headphones (THX Spatial - Synapse)' found" -ForegroundColor Red
         Write-Host "Press Enter to quit... " -NoNewline; Read-Host
         Exit
     }
@@ -99,8 +99,8 @@ else {
     While ($true) {
 
         Write-Host "Press Enter (Ctrl+C to abort)... " -NoNewline; Read-Host
-        Set-AudioDevice -ID $((Get-AudioDevice -List | Where-Object {$_.Name -eq "Högtalare (Razer Kraken TE - Game)"}).ID) 1> $null
+        Set-AudioDevice -ID $((Get-AudioDevice -List | Where-Object {$_.Name -eq "Headphones (Razer Kraken TE - Game)"}).ID) 1> $null
         Sleep 1
-        Set-AudioDevice -ID $((Get-AudioDevice -List | Where-Object {$_.Name -eq "Högtalare (THX Spatial - Synapse)"}).ID) 1> $null
+        Set-AudioDevice -ID $((Get-AudioDevice -List | Where-Object {$_.Name -eq "Headphones (THX Spatial - Synapse)"}).ID) 1> $null
     }
 }
